@@ -6,8 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Clone QMK
+      - name: Clone itspriddle/q2-qmk
+        uses: actions/checkout@v3
+      - name: Clone qmk/qmk_firmware
         run: git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/qmk/qmk_firmware.git
       - name: Install qmk deps
         run: cd qmk_firmware && ./util/qmk_install.sh && python3 -m pip install qmk
@@ -20,7 +21,7 @@ jobs:
       - name: Compile firmware
         run: cd qmk_firmware && make keychron/q2/ansi_encoder:josh
       - name: Upload compiled firmware (build artifact)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Keychron Q2 ANSI Encoder QMK Firmware (Josh)
           path: qmk_firmware/keychron_q2_ansi_encoder_josh.bin

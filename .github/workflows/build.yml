@@ -29,6 +29,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             qmk_firmware/keychron_q2_ansi_encoder_josh.bin
     # runs-on: macos-11

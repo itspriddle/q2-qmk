@@ -8,13 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Clone QMK
-        run: git clone --depth=1 https://github.com/qmk/qmk_firmware.git
+        run: git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/qmk/qmk_firmware.git
       - name: Install qmk deps
         run: cd qmk_firmware && ./util/qmk_install.sh && python3 -m pip install qmk
       # - name: fix gcc
       #   run: sudo bash .github/scripts/update-gcc10-ubuntu.sh
-      - name: Install git submodules
-        run: cd qmk_firmware && make git-submodule
+      # - name: Install git submodules
+      #   run: cd qmk_firmware && make git-submodule
       - name: Copy custom keymaps
         run: cp -rp keyboards/keychron/q2/ansi_encoder/keymaps/josh qmk_firmware/keyboards/keychron/q2/ansi_encoder/keymaps
       - name: Compile firmware
@@ -22,7 +22,7 @@ jobs:
       - name: Upload compiled firmware (build artifact)
         uses: actions/upload-artifact@v2
         with:
-          name: Keychron K6 QMK Firmware
+          name: Keychron Q2 ANSI Encoder QMK Firmware (Josh)
           path: qmk_firmware/keychron_q2_ansi_encoder_josh.bin
       - name: Upload compiled firmware (tagged release)
         uses: softprops/action-gh-release@v1

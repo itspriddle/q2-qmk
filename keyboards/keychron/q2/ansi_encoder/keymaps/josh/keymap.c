@@ -96,8 +96,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   // Turn knob with no mods pressed
   if (IS_LAYER_ON(MAC_BASE) || IS_LAYER_ON(WIN_BASE)) {
     if (dip_is_mac) {
-      // Mac: Vol up/down in small increments
-      tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+      if (get_mods() & MOD_MASK_CTRL) {
+        tap_code16(clockwise ? KC_WH_U : KC_WH_D)
+      } else {
+        // Mac: Vol up/down in small increments
+        tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+      }
     } else {
       // Win: Vol up/down
       tap_code16(clockwise ? KC_VOLU : KC_VOLD);

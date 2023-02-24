@@ -97,7 +97,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   if (IS_LAYER_ON(MAC_BASE) || IS_LAYER_ON(WIN_BASE)) {
     if (dip_is_mac) {
       if (get_mods() & MOD_MASK_CTRL) {
-        tap_code16(clockwise ? KC_WH_U : KC_WH_D)
+        tap_code16(LCTL(clockwise ? KC_WH_U : KC_WH_D));
       } else {
         // Mac: Vol up/down in small increments
         tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));

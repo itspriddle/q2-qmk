@@ -24,9 +24,9 @@ jobs:
         run: |
           cd qmk_firmware
           make keychron/q2/ansi_encoder:josh
-          cp keychron_q2_ansi_encoder_josh.bin ../pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin
+          cp keychron_q2_ansi_encoder_josh.bin "../pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin"
       - name: Upload compiled firmware (build artifact)
-        if: !startsWith(github.ref, 'refs/tags/')
+        if: "!startsWith(github.ref, 'refs/tags/')"
         uses: actions/upload-artifact@v3
         with:
           name: Keychron Q2 Josh (${{ env.Q2_QMK_VERSION }}-HEAD)
@@ -35,7 +35,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           cd pkg
-          gzip -c keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin > keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.gz
+          gzip -c "keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin" > "keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.gz"
       - name: Upload compiled firmware for tagged release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

@@ -27,16 +27,16 @@ jobs:
           mkdir -p pkg/keychron_q2_josh
           cp qmk_firmware/keychron_q2_ansi_encoder_josh.bin "pkg/keychron_q2_josh/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin"
           cd pkg
-          zip -r keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip keychron_q2_josh
+          tar -vzcf keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.tgz keychron_q2_josh
       - name: Upload compiled firmware (build artifact)
         uses: actions/upload-artifact@v3
         with:
-          name: Keychron Q2 ANSI Encoder QMK Firmware (Josh)
-          path: pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip
+          name: keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.tgz
+          path: pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.tgz
       - name: Upload compiled firmware (tagged release)
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip
+            pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.tgz

@@ -3,7 +3,7 @@
 set -e
 
 if [[ "${GITHUB_REF:-}" =~ refs/tags ]]; then
-  echo "Q2_QMK_VERSION=\"${GITHUB_REF##refs/tags/}\""
+  echo "Q2_QMK_VERSION=${GITHUB_REF##refs/tags/}"
 else
-  echo "Q2_QMK_VERSION=\"v$(date "+%Y%m%d%H%M%S")-HEAD\""
+  echo "Q2_QMK_VERSION=v$(date "+%Y%m%d%H%M%S")-HEAD"
 fi

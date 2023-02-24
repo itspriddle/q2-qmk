@@ -147,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_BRI_MAX:
       if (record->event.pressed) {
         clear_mods();
-        for (int i = 0; i < 100) {
+        for (int i = 0; i < 100; i++) {
           tap_code16(LCTL(KC_BRIU));
         }
       } else {

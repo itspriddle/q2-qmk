@@ -20,7 +20,7 @@ jobs:
       - name: Compile firmware
         run: cd qmk_firmware && make keychron/q2/ansi_encoder:josh
       - name: Package firmware
-        run: cd qmk_firmware && zip keychron_q2_ansi_encoder_josh.zip keychron_q2_ansi_encoder_josh.bin keychron_q2_ansi_encoder_josh.hex
+        run: mkdir build/keychron_q2_ansi_encoder_josh && cp qmk_firmware/keychron_q2_ansi_encoder_josh.bin qmk_firmware/keychron_q2_ansi_encoder_josh.hex build/keychron_q2_ansi_encoder_josh && cd build && zip -r keychron_q2_ansi_encoder_josh.zip keychron_q2_ansi_encoder_josh
       - name: Upload compiled firmware (build artifact)
         uses: actions/upload-artifact@v3
         with:

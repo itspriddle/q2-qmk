@@ -93,7 +93,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 #ifdef RGB_MATRIX_ENABLE
 void matrix_init_user(void) {
-  rgblight_disable_noeeprom();
+  rgb_matrix_disable_noeeprom();
 }
 #endif
 

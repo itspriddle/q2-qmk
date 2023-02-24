@@ -65,13 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool dip_is_mac;
 
 bool dip_switch_update_user(uint8_t index, bool active) {
-  switch (index) {
-    case 0:
-      dip_is_mac = false;
-      break;
-    case 1:
-      dip_is_mac = true;
-      break;
+  if (index == 0) {
+    dip_is_mac = active;
   }
 
   return true;

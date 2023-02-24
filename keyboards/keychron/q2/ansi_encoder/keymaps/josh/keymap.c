@@ -25,15 +25,22 @@ enum layers{
     _FN3
 };
 
+// TODO: setup a custom key that detects shift/ctrl/etc being pressed to
+// enable/disable moving in small steps?
+
+// Brightness down/up for secondary display
 #define KC_BRID2 LCTL(KC_BRID)
 #define KC_BRIU2 LCTL(KC_BRIU)
 
-#define KC_BRISU LSFT(LOPT(KC_BRIU))
+// Brightness down/up for primary display, in small steps
 #define KC_BRISD LSFT(LOPT(KC_BRID))
+#define KC_BRISU LSFT(LOPT(KC_BRIU))
 
+// Brightness down/up for secondary display, in small steps
 #define KC_BRISU2 LSFT(LOPT(LCTL(KC_BRIU)))
 #define KC_BRISD2 LSFT(LOPT(LCTL(KC_BRID)))
 
+// Volume up/down in small steps
 #define KC_VOLSU LSFT(LOPT(KC_VOLU))
 #define KC_VOLSD LSFT(LOPT(KC_VOLD))
 
@@ -84,7 +91,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+void matrix_init_user(void) {
+  rgblight_disable_noeeprom();
+}
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // https://github.com/qmk/qmk_firmware/blob/master/keyboards/keychron/common/keychron_common.c#L42
     if (!process_record_keychron(keycode, record)) {
         return false;
     }

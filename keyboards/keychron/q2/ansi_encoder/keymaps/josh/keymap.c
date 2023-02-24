@@ -25,26 +25,6 @@ enum layers{
     _FN3
 };
 
-// TODO: setup a custom key that detects shift/ctrl/etc being pressed to
-// enable/disable moving in small steps?
-// TODO: These don't seem to keep w orking if I spam them :(
-
-// Brightness down/up for secondary display
-#define KC_BRID2 LCTL(KC_BRID)
-#define KC_BRIU2 LCTL(KC_BRIU)
-
-// Brightness down/up for primary display, in small steps
-#define KC_BRISD LSFT(LOPT(KC_BRID))
-#define KC_BRISU LSFT(LOPT(KC_BRIU))
-
-// Brightness down/up for secondary display, in small steps
-#define KC_BRISU2 LSFT(LOPT(LCTL(KC_BRIU)))
-#define KC_BRISD2 LSFT(LOPT(LCTL(KC_BRID)))
-
-// Volume up/down in small steps
-#define KC_VOLSU LSFT(LOPT(KC_VOLU))
-#define KC_VOLSD LSFT(LOPT(KC_VOLD))
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
         KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
@@ -84,12 +64,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
-    [_FN1]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
-    [_FN2]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
-    [_FN3]     = { ENCODER_CCW_CW(KC_BRID2, KC_BRIU2) },
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FN1]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
+    [_FN2]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
+    [_FN3]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
 };
+#else
+// TODO: This might be interesting...
+// https://www.reddit.com/r/olkb/comments/sp707f/reduce_encoder_sensitivity_for_media_skipping/
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (IS_LAYER_ON(MAC_BASE)) {
+    // Mac: Vol up/down in small steps
+    tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+  } else if (IS_LAYER_ON(WIN_BASE)) {
+    // Win: Vol up/down
+    tap_code16(clockwise ? KC_VOLU : KC_VOLD);
+  } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
+    // TODO: detect dipswitch on mac or win
+    // Mac: Brightness up/down on primary display
+    tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+  } else if (IS_LAYER_ON(_FN3)) {
+    // TODO: detect dipswitch on mac or win
+    // Mac: Brightness up/down on secondary display
+    tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+  }
+
+  return true;
+}
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

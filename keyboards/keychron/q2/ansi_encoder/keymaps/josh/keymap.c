@@ -27,6 +27,7 @@ enum layers{
 
 // TODO: setup a custom key that detects shift/ctrl/etc being pressed to
 // enable/disable moving in small steps?
+// TODO: These don't seem to keep w orking if I spam them :(
 
 // Brightness down/up for secondary display
 #define KC_BRID2 LCTL(KC_BRID)
@@ -83,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLSD,  KC_VOLSU) },
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLSD,  KC_VOLSU) },
-    [_FN1]     = { ENCODER_CCW_CW(KC_BRISD,  KC_BRISU) },
-    [_FN2]     = { ENCODER_CCW_CW(KC_BRISD,  KC_BRISU) },
-    [_FN3]     = { ENCODER_CCW_CW(KC_BRISD2, KC_BRISU2) },
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
+    [_FN1]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
+    [_FN2]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
+    [_FN3]     = { ENCODER_CCW_CW(KC_BRID2, KC_BRIU2) },
 };
 #endif
 

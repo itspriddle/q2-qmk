@@ -25,6 +25,9 @@ enum layers{
     _FN3
 };
 
+#define KC_BRID2 LCTL(KC_BRID)
+#define KC_BRIU2 LCTL(KC_BRIU)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
         KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
@@ -64,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_FN1]     = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-    [_FN2]     = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-    [_FN3]     = { ENCODER_CCW_CW(_______, _______) },
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
+    [_FN1]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
+    [_FN2]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU) },
+    [_FN3]     = { ENCODER_CCW_CW(KC_BRID2, KC_BRIU2) },
 };
 #endif
 

@@ -84,26 +84,33 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 // TODO: This might be interesting...
 // https://www.reddit.com/r/olkb/comments/sp707f/reduce_encoder_sensitivity_for_media_skipping/
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (IS_LAYER_ON(MAC_BASE)) {
-    // Mac: Vol up/down in small steps
-    tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
-  } else if (IS_LAYER_ON(WIN_BASE)) {
-    // Win: Vol up/down
-    tap_code16(clockwise ? KC_VOLU : KC_VOLD);
-  } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
-    // TODO: detect dipswitch on mac or win
-    // Mac: Brightness up/down on primary display
+  // Turn knob with no mods pressed
+  if (IS_LAYER_ON(MAC_BASE) || IS_LAYER_ON(WIN_BASE)) {
     if (dip_is_mac) {
+      // Mac: Vol up/down in small increments
+      tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+    } else {
+      // Win: Vol up/down
+      tap_code16(clockwise ? KC_VOLU : KC_VOLD);
+    }
+
+  // Turn knob with FN1 pressed
+  } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
+    if (dip_is_mac) {
+      // Mac: Brightness up/down on primary display in small increments
       tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
     } else {
+      // Windows: brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);
     }
+
+  // Turn knob with FN2 pressed
   } else if (IS_LAYER_ON(_FN3)) {
-    // TODO: detect dipswitch on mac or win
-    // Mac: Brightness up/down on secondary display
     if (dip_is_mac) {
+      // Mac: Brightness up/down on secondary display in small increments
       tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
     } else {
+      // Win: Brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);
     }
   }

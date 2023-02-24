@@ -66,7 +66,7 @@ bool dip_is_mac;
 
 bool dip_switch_update_user(uint8_t index, bool active) {
   if (index == 0) {
-    dip_is_mac = active;
+    dip_is_mac = !active;
   }
 
   return true;

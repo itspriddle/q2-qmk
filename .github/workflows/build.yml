@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Clone itspriddle/q2-qmk
         uses: actions/checkout@v3
+      - name: Get version
+        id: version
+        run: ./.github/scripts/get-version >> $GITHUB_ENV
       - name: Clone qmk/qmk_firmware
         run: git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/qmk/qmk_firmware.git
       - name: Install qmk deps
@@ -20,16 +23,20 @@ jobs:
       - name: Compile firmware
         run: cd qmk_firmware && make keychron/q2/ansi_encoder:josh
       - name: Package firmware
-        run: mkdir -p pkg/keychron_q2_ansi_encoder_josh && cp qmk_firmware/keychron_q2_ansi_encoder_josh.bin pkg/keychron_q2_ansi_encoder_josh && cd pkg && zip -r keychron_q2_ansi_encoder_josh.zip keychron_q2_ansi_encoder_josh
+        run: |
+          mkdir -p pkg/keychron_q2_josh
+          cp qmk_firmware/keychron_q2_ansi_encoder_josh.bin "pkg/keychron_q2_josh/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.bin"
+          cd pkg
+          zip -r keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip keychron_q2_josh
       - name: Upload compiled firmware (build artifact)
         uses: actions/upload-artifact@v3
         with:
           name: Keychron Q2 ANSI Encoder QMK Firmware (Josh)
-          path: pkg/keychron_q2_ansi_encoder_josh.zip
+          path: pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip
       - name: Upload compiled firmware (tagged release)
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            pkg/keychron_q2_ansi_encoder_josh.zip
+            pkg/keychron_q2_josh-${{ env.Q2_QMK_VERSION }}.zip

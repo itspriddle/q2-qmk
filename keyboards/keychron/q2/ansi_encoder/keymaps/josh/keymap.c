@@ -62,6 +62,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______)
 };
 
+bool dip_is_mac;
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+  switch (index) {
+    case 0:
+      dip_is_mac = false;
+      break;
+    case 1:
+      dip_is_mac = true;
+      break;
+    }
+  }
+
+  return true;
+}
+
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
@@ -83,11 +99,19 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
     // TODO: detect dipswitch on mac or win
     // Mac: Brightness up/down on primary display
-    tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+    if (dip_is_mac) {
+      tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+    } else {
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
+    }
   } else if (IS_LAYER_ON(_FN3)) {
     // TODO: detect dipswitch on mac or win
     // Mac: Brightness up/down on secondary display
-    tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+    if (dip_is_mac) {
+      tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+    } else {
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
+    }
   }
 
   return true;

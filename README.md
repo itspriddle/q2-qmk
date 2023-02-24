@@ -46,3 +46,4 @@ To see how to do this Linux, see
 [Keychron Q2]: https://www.keychron.com/pages/keychron-q2-customizable-mechanical-keyboard
 [Keychron Q2 Reset]: https://www.keychron.com/blogs/archived/how-to-factory-reset-or-flash-your-qmk-via-enabled-keychron-q2-keyboard
 [QMK-on-K6]: https://github.com/CanUnesi/QMK-on-K6/blob/main/README.md
+[Keychron Q2 Default Keymap]: https://github.com/qmk/qmk_firmware/blob/master/keyboards/keychron/q2/ansi_encoder/keymaps/default/keymap.c

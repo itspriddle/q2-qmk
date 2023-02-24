@@ -8,7 +8,7 @@ Huge thanks to [QMK-on-K6][] for outlining this process!
 ## Q2 Keymap
 
 My Q2 keymap is at [`keyboards/keychron/q2/keymaps/ansi-josh/keymap.c`](./keyboards/keychron/q2/ansi_encoder/keymaps/josh/keymap.c).
-It is a copy of the [`keychron/q2/ansi_encoder:keychron`][Keychron Q2 Default Keymap].
+It is a copy of the [`keychron/q2/ansi_encoder:keychron`][Keychron Q2 Default Keymap] files.
 
 See the [releases](https://github.com/itspriddle/q2-qmk/releases) page for
 tagged builds.
@@ -46,4 +46,4 @@ To see how to do this Linux, see
 [Keychron Q2]: https://www.keychron.com/pages/keychron-q2-customizable-mechanical-keyboard
 [Keychron Q2 Reset]: https://www.keychron.com/blogs/archived/how-to-factory-reset-or-flash-your-qmk-via-enabled-keychron-q2-keyboard
 [QMK-on-K6]: https://github.com/CanUnesi/QMK-on-K6/blob/main/README.md
-[Keychron Q2 Default Keymap]: https://github.com/qmk/qmk_firmware/blob/master/keyboards/keychron/q2/ansi_encoder/keymaps/keychron/keymap.c
+[Keychron Q2 Default Keymap]: https://github.com/qmk/qmk_firmware/tree/2133cc1/keyboards/keychron/q2/ansi_encoder/keymaps/keychron

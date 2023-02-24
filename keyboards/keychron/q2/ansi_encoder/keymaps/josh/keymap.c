@@ -27,11 +27,7 @@ enum layers{
 
 // Custom keykodes
 enum my_keycodes {
-#if defined(VIA_ENABLE)
-  KC_BRI_MAX = USER00
-#else
   KC_BRI_MAX = SAFE_RANGE
-#endif
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

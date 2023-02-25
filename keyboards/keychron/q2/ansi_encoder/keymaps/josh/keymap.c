@@ -101,7 +101,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         tap_code16(LCTL(clockwise ? KC_WH_U : KC_WH_D));
       } else {
         // Mac: Vol up/down in small increments
-        tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+        //tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+
+        // Mac: Vol up/down
+        tap_code16(clockwise ? KC_VOLU : KC_VOLD);
       }
     } else {
       // Win: Vol up/down
@@ -112,7 +115,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
     if (dip_is_mac) {
       // Mac: Brightness up/down on primary display in small increments
-      tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+      // tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+
+      // Mac: Brightness up/down on primary display
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
     } else {
       // Windows: brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);
@@ -122,7 +128,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else if (IS_LAYER_ON(_FN3)) {
     if (dip_is_mac) {
       // Mac: Brightness up/down on secondary display in small increments
-      tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+      /* tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID)))); */
+
+      // Mac: Brightness up/down on secondary display
+      tap_code16(LCTL(clockwise ? KC_BRIU : KC_BRID));
     } else {
       // Win: Brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);

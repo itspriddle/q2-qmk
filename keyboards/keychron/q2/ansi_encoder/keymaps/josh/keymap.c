@@ -25,6 +25,11 @@ enum layers{
     _FN3
 };
 
+// Custom keykodes
+enum my_keycodes {
+  KC_BRI_MAX = SAFE_RANGE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
         KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
@@ -55,12 +60,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______),
 
     [_FN3] = LAYOUT_ansi_67(
-        KC_TILD, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          _______,
+        KC_TILD, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          KC_BRI_MAX,
         RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
         _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______, _______,
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______)
 };
+
+bool dip_is_mac;
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+  if (index == 0) {
+    dip_is_mac = !active;
+  }
+
+  return true;
+}
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -74,20 +89,39 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 // TODO: This might be interesting...
 // https://www.reddit.com/r/olkb/comments/sp707f/reduce_encoder_sensitivity_for_media_skipping/
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (IS_LAYER_ON(MAC_BASE)) {
-    // Mac: Vol up/down in small steps
-    tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
-  } else if (IS_LAYER_ON(WIN_BASE)) {
-    // Win: Vol up/down
-    tap_code16(clockwise ? KC_VOLU : KC_VOLD);
+  // Turn knob with no mods pressed
+  if (IS_LAYER_ON(MAC_BASE) || IS_LAYER_ON(WIN_BASE)) {
+    if (dip_is_mac) {
+      if (get_mods() & MOD_MASK_CTRL) {
+        tap_code16(LCTL(clockwise ? KC_WH_U : KC_WH_D));
+      } else {
+        // Mac: Vol up/down in small increments
+        tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+      }
+    } else {
+      // Win: Vol up/down
+      tap_code16(clockwise ? KC_VOLU : KC_VOLD);
+    }
+
+  // Turn knob with FN1 pressed
   } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
-    // TODO: detect dipswitch on mac or win
-    // Mac: Brightness up/down on primary display
-    tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+    if (dip_is_mac) {
+      // Mac: Brightness up/down on primary display in small increments
+      tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+    } else {
+      // Windows: brightness up/down
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
+    }
+
+  // Turn knob with FN2 pressed
   } else if (IS_LAYER_ON(_FN3)) {
-    // TODO: detect dipswitch on mac or win
-    // Mac: Brightness up/down on secondary display
-    tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+    if (dip_is_mac) {
+      // Mac: Brightness up/down on secondary display in small increments
+      tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+    } else {
+      // Win: Brightness up/down
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
+    }
   }
 
   return true;
@@ -101,11 +135,28 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 // }
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // https://github.com/qmk/qmk_firmware/blob/master/keyboards/keychron/common/keychron_common.c#L42
-    if (!process_record_keychron(keycode, record)) {
-        return false;
-    }
+uint8_t mod_state;
 
-    return true;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // https://github.com/qmk/qmk_firmware/blob/master/keyboards/keychron/common/keychron_common.c#L42
+  if (!process_record_keychron(keycode, record)) {
+    return false;
+  }
+
+  mod_state = get_mods();
+
+  switch (keycode) {
+    case KC_BRI_MAX:
+      if (record->event.pressed) {
+        clear_mods();
+        for (int i = 0; i < 100; i++) {
+          tap_code16(LCTL(KC_BRIU));
+        }
+      } else {
+        set_mods(mod_state);
+      }
+      break;
+  }
+
+  return true;
 }

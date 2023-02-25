@@ -19,7 +19,7 @@ tagged builds.
 - Map <kbd>Caps Lock</kbd> to <kbd>Esc</kbd>.
 - Map <kbd>Fn1+Caps Lock</kbd> to <kbd>Caps Lock</kbd> for the rare moments I
   want to YELL.
-- Map <kbd>Del<kbd> (immediately under the knob) to <kbd>Home</kbd> to match
+- Map <kbd>Del</kbd> (immediately under the knob) to <kbd>Home</kbd> to match
   the [keycaps][Keychron Keycaps] I have.
 - Map <kbd>Home</kbd> to <kbd>Page Up</kbd> to match my keycaps.
 - On Mac:
@@ -52,16 +52,17 @@ To see how to do this Linux, see
 ## Installing Firmware
 
 1. Install [QMK Toolbox][] and launch it.
-2. Unplug the Q2. Hold `<esc>` and `<ctrl>` and plug the keyboard in. If you
-   see "DFU device connected" in QMK Toolbox, move on to step 3.
+2. Unplug the Q2. Hold <kbd>Esc</kbd> and <kbd>Ctrl</kbd> and plug the
+   keyboard in. If you see "DFU device connected" in QMK Toolbox, move on to
+   step 3.
      - If you do not, you need to manually put the keyboard in DFU mode.
        Follow [these steps][Keychron Q2 Reset] but stop short of uploading any
        firmware (since you're about to upload your own).
        Unplug it again. Remove the spacebar. Press and hold the small button
        that is visible in the left opening on the case. Plug the keyboard in
        again.
-3. Click "Open" and upload a ".bin" file that GitHub Actions generated.
-4. Click the "Flash" button
+3. Click "Open" and upload the `.bin` file that GitHub Actions generated.
+4. Click the "Flash" button.
 
 [QMK]: https://qmk.fm
 [QMK Toolbox]: https://github.com/qmk/qmk_toolbox

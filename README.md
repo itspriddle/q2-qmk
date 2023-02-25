@@ -13,6 +13,22 @@ It is a copy of the [`keychron/q2/ansi_encoder:keychron`][Keychron Q2 Default Ke
 See the [releases](https://github.com/itspriddle/q2-qmk/releases) page for
 tagged builds.
 
+## My Setup
+
+- Map the <kbd>\`~</kbd> key to <kbd>Esc</kbd>
+- On Mac:
+    - Turning the knob with no modifiers adjusts volume
+    - Holding <kbd>Ctrl</kbd> and turning the knob clockwise sends
+      <kbd>Ctrl+Mouse Wheel Up</kbd>. Counter-clockwise sends <kbd>Ctrl+Mouse
+      Wheel Down</kbd>. This zooms in and out on macOS (with an Accessibility
+      setting enabled)
+    - Holding <kbd>Fn1</kbd> and turning the knob adjusts brightness
+      on a second display.
+    - Holding <kbd>Fn2</kbd> and turning the knob adjusts brightness on the
+      primary display.
+    - Holding <kbd>Fn1</kbd> and pressing the knob maxes out the brightness on
+      a secondary display (by sending 16x brightness up calls).
+
 ## GitHub Workflow
 
 Make changes to `keymap.c` and then commit/push them to GitHub. If a build

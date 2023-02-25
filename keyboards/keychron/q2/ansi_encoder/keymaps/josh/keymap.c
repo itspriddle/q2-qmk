@@ -143,6 +143,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
+  mod_state = get_mods();
+
   switch (keycode) {
     case KC_BRI_MAX:
       if (record->event.pressed) {

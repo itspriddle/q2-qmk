@@ -17,18 +17,32 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers{
-    MAC_BASE,
-    WIN_BASE,
-    _FN1,
-    _FN2,
-    _FN3
-};
+// Stealing KC_LNG1-9. keychron_common defines custom keymaps using
+// SAFE_RANGE, and if I do it here for custom codes they collide. I don't want
+// to copy that file yet. and KC_LNG* looks to only be used by Linux.
 
-// Custom keykodes
-/* enum my_keycodes { */
-/*   KC_BRI_MAX = SAFE_RANGE */
-/* }; */
+// Increase brightness on secondary display
+#define KC_BRIU2 LCTL(KC_BRIU)
+
+// Decrease brightness on secondary display
+#define KC_BRID2 LCTL(KC_BRID)
+
+// Rotate knob clockwise
+#define KC_KNOBU KC_LNG1
+
+// Rotate knob counter-clockwise
+#define KC_KNOBD KC_LNG2
+
+// Max brightness
+#define KC_BRI_MAX KC_LNG3
+
+enum layers {
+  MAC_BASE,
+  WIN_BASE,
+  _FN1,
+  _FN2,
+  _FN3
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MAC_BASE] = LAYOUT_ansi_67(
@@ -48,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN1] = LAYOUT_ansi_67(
-    KC_ESC,  KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           RGB_TOG,
+    KC_ESC,  KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           KC_BRI_MAX,
     RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
     KC_CAPS, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
     _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
@@ -64,82 +78,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN3] = LAYOUT_ansi_67(
-    KC_TILD, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          _______,
-    RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
-    _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
+    _______, KC_F1,    KC_F2,   KC_F3,   KC_F4,  KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          _______,
+    _______, KC_F13,   KC_F14,  KC_F15,  KC_F16, KC_F17,   KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,   KC_F23,   KC_F24,   _______,          _______,
+    _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______,          _______,
     _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______, _______,
     _______, _______,  _______,                            QK_BOOT,                            _______,  _______,  _______,  _______, _______, _______
   )
 };
 
-bool dip_is_mac;
-
-bool dip_switch_update_user(uint8_t index, bool active) {
-  if (index == 0) {
-    dip_is_mac = !active;
-  }
-
-  return true;
-}
-
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_FN1]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
-    [_FN2]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
-    [_FN3]     = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
+  [MAC_BASE] = { ENCODER_CCW_CW(KC_KNOBD, KC_KNOBU) },
+  [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU)  },
+  [_FN1]     = { ENCODER_CCW_CW(KC_BRID2, KC_BRIU2) },
+  [_FN2]     = { ENCODER_CCW_CW(KC_BRID2, KC_BRIU2) },
+  [_FN3]     = { ENCODER_CCW_CW(KC_BRID,  KC_BRIU)  },
 };
-#else
-// TODO: This might be interesting...
-// https://www.reddit.com/r/olkb/comments/sp707f/reduce_encoder_sensitivity_for_media_skipping/
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  // Turn knob with no mods pressed
-  if (IS_LAYER_ON(MAC_BASE) || IS_LAYER_ON(WIN_BASE)) {
-    if (dip_is_mac) {
-      if (get_mods() & MOD_MASK_CTRL) {
-        tap_code16(LCTL(clockwise ? KC_WH_U : KC_WH_D));
-      } else {
-        // Mac: Vol up/down in small increments
-        //tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
-
-        // Mac: Vol up/down
-        tap_code16(clockwise ? KC_VOLU : KC_VOLD);
-      }
-    } else {
-      // Win: Vol up/down
-      tap_code16(clockwise ? KC_VOLU : KC_VOLD);
-    }
-
-  // Turn knob with FN1 pressed
-  } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
-    if (dip_is_mac) {
-      // Mac: Brightness up/down on primary display in small increments
-      // tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
-
-      // Mac: Brightness up/down on primary display
-      tap_code16(clockwise ? KC_BRIU : KC_BRID);
-    } else {
-      // Windows: brightness up/down
-      tap_code16(clockwise ? KC_BRIU : KC_BRID);
-    }
-
-  // Turn knob with FN2 pressed
-  } else if (IS_LAYER_ON(_FN3)) {
-    if (dip_is_mac) {
-      // Mac: Brightness up/down on secondary display in small increments
-      /* tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID)))); */
-
-      // Mac: Brightness up/down on secondary display
-      tap_code16(LCTL(clockwise ? KC_BRIU : KC_BRID));
-    } else {
-      // Win: Brightness up/down
-      tap_code16(clockwise ? KC_BRIU : KC_BRID);
-    }
-  }
-
-  return true;
-}
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -147,6 +101,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //   rgb_matrix_disable_noeeprom();
 // }
 #endif
+
+void housekeeping_task_user(void) {
+  housekeeping_task_keychron();
+}
 
 uint8_t mod_state;
 
@@ -156,24 +114,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
-  /*
   mod_state = get_mods();
 
   switch (keycode) {
+    case KC_KNOBU:
+      if (record->event.pressed) {
+        if (mod_state & MOD_MASK_CTRL) {
+          tap_code16(KC_WH_U);
+        } else {
+          tap_code16(KC_VOLU);
+        }
+      }
+      return false;
+      break;
+    case KC_KNOBD:
+      if (record->event.pressed) {
+        if (mod_state & MOD_MASK_CTRL) {
+          tap_code16(KC_WH_D);
+        } else {
+          tap_code16(KC_VOLD);
+        }
+      }
+      return false;
+      break;
     case KC_BRI_MAX:
       if (record->event.pressed) {
-        clear_mods();
-        set_mods(MOD_MASK_CTRL);
-        for (int i = 0; i < 10; i++) {
-          tap_code16(KC_BRIU);
+        for (int i = 0; i < 16; i++) {
+          tap_code16(KC_BRIU2);
         }
-        set_mods(mod_state);
-      } else {
-        set_mods(mod_state);
       }
+      return false;
       break;
   }
-  */
 
   return true;
 }

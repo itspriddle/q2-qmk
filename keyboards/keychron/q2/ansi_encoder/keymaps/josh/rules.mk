@@ -1,7 +1,6 @@
-VIA_ENABLE = yes
+VIA_ENABLE = no
 
-# Using my own encoder_update_user() function
-# ENCODER_MAP_ENABLE = no
+ENCODER_MAP_ENABLE = yes
 
 # RGB_MATRIX_ENABLE = no
 

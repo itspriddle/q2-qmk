@@ -15,7 +15,10 @@ tagged builds.
 
 ## My Setup
 
-- Map the <kbd>\`~</kbd> key to <kbd>Esc</kbd>
+- Map the <kbd>Esc</kbd> key to <kbd>\`~</kbd>
+- Map <kbd>Caps Lock</kbd> to <kbd>Esc</kbd>
+- Map <kbd>Fn1+Caps Lock</kbd> to <kbd>Caps Lock</kbd> for the rare moments I
+  want to YELL
 - On Mac:
     - Turning the knob with no modifiers adjusts volume
     - Holding <kbd>Ctrl</kbd> and turning the knob clockwise sends

@@ -31,40 +31,45 @@ enum my_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [MAC_BASE] = LAYOUT_ansi_67(
-        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
-        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_HOME,
-        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGUP,
-        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
-        KC_LCTL, KC_LOPTN, KC_LCMMD,                           KC_SPC,                             KC_RCMMD, MO(_FN1), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT),
+  [MAC_BASE] = LAYOUT_ansi_67(
+    KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
+    KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_HOME,
+    KC_ESC , KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGUP,
+    KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
+    KC_LCTL, KC_LOPTN, KC_LCMMD,                           KC_SPC,                             KC_RCMMD, MO(_FN1), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT
+  ),
 
-    [WIN_BASE] = LAYOUT_ansi_67(
-        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
-        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_HOME,
-        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGUP,
-        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
-        KC_LCTL, KC_LWIN,  KC_LALT,                            KC_SPC,                             KC_RALT,  MO(_FN2), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT),
+  [WIN_BASE] = LAYOUT_ansi_67(
+    KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
+    KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_HOME,
+    KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGUP,
+    KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
+    KC_LCTL, KC_LWIN,  KC_LALT,                            KC_SPC,                             KC_RALT,  MO(_FN2), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT
+  ),
 
-    [_FN1] = LAYOUT_ansi_67(
-        KC_ESC,  KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           RGB_TOG,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
-        _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
-        _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
-        _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______),
+  [_FN1] = LAYOUT_ansi_67(
+    KC_ESC,  KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           RGB_TOG,
+    RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
+    KC_CAPS, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
+    _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
+    _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______
+  ),
 
-    [_FN2] = LAYOUT_ansi_67(
-        KC_ESC,  KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           RGB_TOG,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
-        _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
-        _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
-        _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______),
+  [_FN2] = LAYOUT_ansi_67(
+    KC_ESC,  KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,           RGB_TOG,
+    RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
+    _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
+    _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
+    _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______
+  ),
 
-    [_FN3] = LAYOUT_ansi_67(
-        KC_TILD, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          KC_BRI_MAX,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
-        _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
-        _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______, _______,
-        _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______, _______, _______)
+  [_FN3] = LAYOUT_ansi_67(
+    KC_TILD, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,          KC_BRI_MAX,
+    RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
+    _______, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, _______, _______, _______, _______, _______,  _______,            _______,          _______,
+    _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______, _______,
+    _______, _______,  _______,                            QK_BOOT,                            _______,  _______,  _______,  _______, _______, _______
+  )
 };
 
 bool dip_is_mac;
@@ -96,7 +101,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         tap_code16(LCTL(clockwise ? KC_WH_U : KC_WH_D));
       } else {
         // Mac: Vol up/down in small increments
-        tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+        //tap_code16(LSFT(LOPT(clockwise ? KC_VOLU : KC_VOLD)));
+
+        // Mac: Vol up/down
+        tap_code16(clockwise ? KC_VOLU : KC_VOLD);
       }
     } else {
       // Win: Vol up/down
@@ -107,7 +115,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else if (IS_LAYER_ON(_FN1) || IS_LAYER_ON(_FN2)) {
     if (dip_is_mac) {
       // Mac: Brightness up/down on primary display in small increments
-      tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+      // tap_code16(LSFT(LOPT(clockwise ? KC_BRIU : KC_BRID)));
+
+      // Mac: Brightness up/down on primary display
+      tap_code16(clockwise ? KC_BRIU : KC_BRID);
     } else {
       // Windows: brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);
@@ -117,7 +128,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else if (IS_LAYER_ON(_FN3)) {
     if (dip_is_mac) {
       // Mac: Brightness up/down on secondary display in small increments
-      tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID))));
+      /* tap_code16(LSFT(LOPT(LCTL(clockwise ? KC_BRIU : KC_BRID)))); */
+
+      // Mac: Brightness up/down on secondary display
+      tap_code16(LCTL(clockwise ? KC_BRIU : KC_BRID));
     } else {
       // Win: Brightness up/down
       tap_code16(clockwise ? KC_BRIU : KC_BRID);
@@ -129,8 +143,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-// not working :(
-// void matrix_init_user(void) {
+// void rgb_matrix_init_user(void) {
 //   rgb_matrix_disable_noeeprom();
 // }
 #endif
@@ -149,9 +162,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_BRI_MAX:
       if (record->event.pressed) {
         clear_mods();
-        for (int i = 0; i < 100; i++) {
-          tap_code16(LCTL(KC_BRIU));
+        set_mods(MOD_MASK_CTRL);
+        for (int i = 0; i < 10; i++) {
+          tap_code16(KC_BRIU);
         }
+        set_mods(mod_state);
       } else {
         set_mods(mod_state);
       }

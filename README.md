@@ -15,16 +15,19 @@ tagged builds.
 
 ## My Setup
 
-- Map the <kbd>Esc</kbd> key to <kbd>\`~</kbd>
-- Map <kbd>Caps Lock</kbd> to <kbd>Esc</kbd>
+- Map the <kbd>Esc</kbd> key to <kbd>\`~</kbd>.
+- Map <kbd>Caps Lock</kbd> to <kbd>Esc</kbd>.
 - Map <kbd>Fn1+Caps Lock</kbd> to <kbd>Caps Lock</kbd> for the rare moments I
-  want to YELL
+  want to YELL.
+- Map <kbd>Del<kbd> (immediately under the knob) to <kbd>Home</kbd> to match
+  the [keycaps][Keychron Keycaps] I have.
+- Map <kbd>Home</kbd> to <kbd>Page Up</kbd> to match my keycaps.
 - On Mac:
-    - Turning the knob with no modifiers adjusts volume
+    - Turning the knob with no modifiers adjusts volume.
     - Holding <kbd>Ctrl</kbd> and turning the knob clockwise sends
       <kbd>Ctrl+Mouse Wheel Up</kbd>. Counter-clockwise sends <kbd>Ctrl+Mouse
       Wheel Down</kbd>. This zooms in and out on macOS (with an Accessibility
-      setting enabled)
+      setting enabled).
     - Holding <kbd>Fn1</kbd> and turning the knob adjusts brightness
       on a second display.
     - Holding <kbd>Fn2</kbd> and turning the knob adjusts brightness on the
@@ -66,3 +69,4 @@ To see how to do this Linux, see
 [Keychron Q2 Reset]: https://www.keychron.com/blogs/archived/how-to-factory-reset-or-flash-your-qmk-via-enabled-keychron-q2-keyboard
 [QMK-on-K6]: https://github.com/CanUnesi/QMK-on-K6/blob/main/README.md
 [Keychron Q2 Default Keymap]: https://github.com/qmk/qmk_firmware/tree/2133cc1/keyboards/keychron/q2/ansi_encoder/keymaps/keychron
+[Keychron Keycaps]: https://www.keychron.com/collections/all-keycaps/products/keychron-oem-profile-pbt-retro-keycap-set?variant=32352277528665

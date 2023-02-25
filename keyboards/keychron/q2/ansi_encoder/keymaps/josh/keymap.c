@@ -129,8 +129,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-// not working :(
-// void matrix_init_user(void) {
+// void rgb_matrix_init_user(void) {
 //   rgb_matrix_disable_noeeprom();
 // }
 #endif

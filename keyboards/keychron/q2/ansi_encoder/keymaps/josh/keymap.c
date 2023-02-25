@@ -26,9 +26,9 @@ enum layers{
 };
 
 // Custom keykodes
-enum my_keycodes {
-  KC_BRI_MAX = SAFE_RANGE
-};
+/* enum my_keycodes { */
+/*   KC_BRI_MAX = SAFE_RANGE */
+/* }; */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MAC_BASE] = LAYOUT_ansi_67(
